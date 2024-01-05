@@ -3,7 +3,7 @@ const log = console.log;
 log(selector("#temp"))
 
 function updateWeather(response) {
-  let temperatureElement = selector("#temp");
+  let temperatureElement = document.querySelector("#temp");
   let temperature = response.data.temperature.current;
   let cityElement = document.querySelector ("#city");
   let descriptionElement = document.querySelector ("#description");
@@ -11,10 +11,13 @@ function updateWeather(response) {
   let windElement = document.querySelector ("#Wind");
   let dateElement = document.querySelector("#date");
   let date = new Date(response.data.time*1000);
+  let iconElement = document.querySelector("#icon");
+  let iconImg = document.querySelector("#icon-img");
   
-  console.log(response.data)
+ 
 
-  dateElement.innerHTML = `${date.getDay} ${date.getHours}:${date.getMinutes}`
+iconImg.src = response.data.condition.icon_url  ; 
+  dateElement.innerHTML = formatDate(date);
   cityElement.innerHTML = response.data.city;
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   windElement.innerHTML = `${response.data.wind.speed}km/h`;
@@ -44,7 +47,7 @@ function formatDate(date) {
     "Friday", 
     "Saturday"];
 
-    let formattedDay = days[day]
+    let formattedDay = days[date.getDay()];
     return `${formattedDay} ${hours}:${minutes}`;
 }
 
