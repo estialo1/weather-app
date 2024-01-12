@@ -58,6 +58,31 @@ function searchCity(city) {
 
 }
 
+function displayForecast() {
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  let forcastHtml = "";
+
+  days.forEach(function(day){
+    forcastHtml +=
+    `
+    <div class = "weather-forcast-day">
+    <div class = "weather-forcast-date">${day}</div>
+    <div class = "weather-forcast-icon"></div>
+    <div class = "weather-forcast-temperatures"></div>
+    <div class = "weather-forcast-temperature"></div>
+    <strong>18°</strong> 
+    <span class = "weather-forcast-temperature">9°</span>
+    </div>
+    
+    </div>
+    </div>
+    `;
+  });
+
+  let forcastElement = document.querySelector("#forcast");
+  forcastElement.innerHTML = forcastHtml;
+}
+
 function handleSearchSubmit(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-form-input");
@@ -68,3 +93,4 @@ function handleSearchSubmit(event) {
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 searchCity("China");
+displayForecast();
