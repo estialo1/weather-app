@@ -1,7 +1,3 @@
-const selector = (ev)=>document.querySelector(ev)
-const log = console.log;
-log(selector("#temp"))
-
 function updateWeather(response) {
   let temperatureElement = document.querySelector("#temp");
   let temperature = response.data.temperature.current;
@@ -52,32 +48,42 @@ function formatDate(date) {
 }
 
 function searchCity(city) {
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiKey = "caa1c809706c840c6bbeatfb4oa35a77";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(updateWeather);
 
 }
 
-function displayForecast() {
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  let forcastHtml = "";
+function getForecast(city) {
+  let apiKey = "caa1c809706c840c6bbeatfb4oa35a77"
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
 
-  days.forEach(function(day){
-    forcastHtml +=
+
+function displayForecast(response) {
+  
+
+  let forcastHtml = "";
+console.log(response);
+
+  response.data.daily.forEach (function (day) {
+    forcastHtml =
+      forcastHtml +
     `
-    <div class = "weather-forcast-day">
-    <div class = "weather-forcast-date">${day}</div>
-    <div class = "weather-forcast-icon"></div>
-    <div class = "weather-forcast-temperatures"></div>
-    <div class = "weather-forcast-temperature"></div>
-    <strong>18°</strong> 
-    <span class = "weather-forcast-temperature">9°</span>
+   <div class = "weather-forcast-day">
+      <div class = "weather-forcast-date"></div>
+      <div class = "weather-forcast-icon">
+      <img src = $"{day.condition.icon_url}" />
+      </div>
+      <div class = "weather-forcast-temperatures"></div>
+      <div class = "weather-forcast-temperature">
+        <strong>${math.round(day.temperature.maximum)}°</strong> 
+        <span class = "weather-forcast-temperature">${math.round(day.temperature.minimum)}°</span>
+      </div>
     </div>
-    
-    </div>
-    </div>
-    `;
-  });
+ `;
+ });
 
   let forcastElement = document.querySelector("#forcast");
   forcastElement.innerHTML = forcastHtml;
@@ -93,4 +99,4 @@ function handleSearchSubmit(event) {
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 searchCity("China");
-displayForecast();
+displayForecast("China");

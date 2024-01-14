@@ -1,5 +1,5 @@
 body {
-  background-color: #aecef8;
+  background-color: #b8e1fcea;
   font-family: "Roboto", sans-serif;
 }
 
@@ -69,7 +69,7 @@ main {
 }
 
 .weather-app {
-  background-color: rgba(65, 122, 228, 0.562);
+  background-color: #76c2f5ea;
   max-width: 600px;
   margin: auto auto;
   padding: 30px;
